@@ -43,12 +43,23 @@ def list_pants(pants):
     print('-------------------------------------------------------\n')
 
 def help_menu():
-    pass
+    print('python3 wardrobe.py <option> <id> <type>')
+    print('Options: ')
+    print('\taddshirt <id> <type>')
+    print('\taddpants <id> <type>')
+    print('\tdeleteshirt <id>')
+    print('\tdeletepants <id>')
+    print('\tlistshirts')
+    print('\tlistpants')
 
 def main():
     engine = dbconnect.connect()
     shirts = get_items(engine, 'shirts')
     pants = get_items(engine, 'pants')
+   
+    if len(sys.argv) < 2:
+        help_menu()
+        exit()
     
     if sys.argv[1] == 'addshirt':
         add_item(engine, 'shirts', sys.argv[2], sys.argv[3])
