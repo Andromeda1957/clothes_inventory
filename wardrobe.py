@@ -32,8 +32,8 @@ def update_item(engine, table, item_id, item_type):
         sql.commit()
 
 def list_shirts(shirts):
-    print('\n-------------------------------------------------------')
-    print('Shirts:')
+    print('\nShirts:')
+    print('-------------------------------------------------------')
 
     for shirt in shirts:
         print(f'Shirt id: {shirt[0]} Shirt type: {shirt[1]}')
@@ -41,22 +41,24 @@ def list_shirts(shirts):
     print('-------------------------------------------------------\n')
 
 def list_pants(pants):
-    print('\n-------------------------------------------------------')
-    print('Pants:')
-
+    print('\nPants:')
+    print('-------------------------------------------------------')
+    
     for pant in pants:
-        print(f'Pant id: {pant[0]} Pant type: {pant[1]}')
+        print(f'Pants id: {pant[0]} Pants type: {pant[1]}')
 
     print('-------------------------------------------------------\n')
 
-def find_pants(pants):
-    pass
+def build_outfit(shirts, pants, shirt_id):
+    acceptable_pants = []
 
-def find_shirts(shirts):
-    pass
+    for shirt in shirts:
+        if shirt[1] == 'tshirt':
+            for pant in pants:
+                if pant[1] == 'jeans':
+                    acceptable_pants.append(pant)
 
-def build_outfit(shirts, pants):
-    pass
+    list_pants(acceptable_pants)
 
 def help_menu():
     print('python3 wardrobe.py <option> <id> <type>')
@@ -97,10 +99,8 @@ def main():
         delete_item(engine, 'shirts', sys.argv[2])
     elif sys.argv[1] == 'deletepants':
         delete_item(engine, 'pants', sys.argv[2])
-    elif sys.argv[1] == 'shirts':
-        build_outfit(shirts, pants)
-    elif sys.argv[1] == 'pants':
-        build_outfit(shirts, pants)
+    elif sys.argv[1] == 'shirt':
+        build_outfit(shirts, pants, sys.argv[2])
     else:
         help_menu()
 
