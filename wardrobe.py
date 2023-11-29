@@ -3,7 +3,7 @@ import sqlalchemy
 import dbconnect
 
 def get_items(engine, item):
-    query = f'SELECT * FROM {item}'
+    query = f"SELECT * FROM {item}"
 
     with engine.connect() as sql:
         items = sql.execute(sqlalchemy.text(query))
@@ -20,6 +20,13 @@ def add_item(engine, table, item_id, item_type):
 def delete_item(engine, table, item_id):
     query = f"DELETE FROM {table} WHERE id={item_id}"
 
+    with engine.connect() as sql:
+        sql.execute(sqlalchemy.text(query))
+        sql.commit()
+
+def update_item(engine, table, item_id, item_type):
+    query = f"UPDATE {table} SET type = '{item_type}' WHERE id = {item_id};"
+    
     with engine.connect() as sql:
         sql.execute(sqlalchemy.text(query))
         sql.commit()
@@ -42,11 +49,24 @@ def list_pants(pants):
 
     print('-------------------------------------------------------\n')
 
+def find_pants(pants):
+    pass
+
+def find_shirts(shirts):
+    pass
+
+def build_outfit(shirts, pants):
+    pass
+
 def help_menu():
     print('python3 wardrobe.py <option> <id> <type>')
     print('Options: ')
+    print('\tshirt <id>')
+    print('\tpants <id')
     print('\taddshirt <id> <type>')
     print('\taddpants <id> <type>')
+    print('\tupdateshirt <id> <type>')
+    print('\tupdatepants <id> <type>')
     print('\tdeleteshirt <id>')
     print('\tdeletepants <id>')
     print('\tlistshirts')
@@ -65,6 +85,10 @@ def main():
         add_item(engine, 'shirts', sys.argv[2], sys.argv[3])
     elif sys.argv[1] == 'addpants':
         add_item(engine, 'pants', sys.argv[2], sys.argv[3])
+    elif sys.argv[1] == 'updateshirt':
+        update_item(engine, 'shirts', sys.argv[2], sys.argv[3])
+    elif sys.argv[1] == 'updatepants':
+        update_item(engine, 'pants', sys.argv[2], sys.argv[3])
     elif sys.argv[1] == 'listshirts':
         list_shirts(shirts)
     elif sys.argv[1] == 'listpants':
@@ -73,6 +97,10 @@ def main():
         delete_item(engine, 'shirts', sys.argv[2])
     elif sys.argv[1] == 'deletepants':
         delete_item(engine, 'pants', sys.argv[2])
+    elif sys.argv[1] == 'shirts':
+        build_outfit(shirts, pants)
+    elif sys.argv[1] == 'pants':
+        build_outfit(shirts, pants)
     else:
         help_menu()
 
