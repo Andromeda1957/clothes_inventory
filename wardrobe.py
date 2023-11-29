@@ -53,10 +53,16 @@ def build_outfit(shirts, pants, shirt_id):
     acceptable_pants = []
 
     for shirt in shirts:
-        if shirt[1] == 'tshirt':
-            for pant in pants:
-                if pant[1] == 'jeans':
-                    acceptable_pants.append(pant)
+        if shirt[0] == int(shirt_id):
+            if shirt[1] == 'tshirt':
+                for pant in pants:
+                    if pant[1] == 'jeans':
+                        acceptable_pants.append(pant)
+
+            elif shirt[1] == 'polo':
+                for pant in pants:
+                    if pant[1] == 'jeans':
+                        acceptable_pants.append(pant)
 
     list_pants(acceptable_pants)
 
