@@ -48,8 +48,8 @@ def main():
     shirts = get_shirts(engine)
     pants = get_pants(engine)
     
-  #  add_shirts(engine, '1', 'tshirt')
-   # add_pants(engine, '1', 'jeans')
+    #add_shirts(engine, '1', 'tshirt')
+    #add_pants(engine, '1', 'jeans')
     list_shirts(shirts)
     list_pants(pants)
 
